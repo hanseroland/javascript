@@ -2,7 +2,6 @@
 var tabNumeros = ["770000001","770000002", "770000003", "770000004","770000005"];
 var tabSoldes = [5000000, 1000000, 20000,3000000, 5000000];
 var tabCodes = ["0001","0002","0003","0004","0005"];
-var tabNumerosTranfert = [];
 var numCourant;
 
  function menu() {
@@ -30,6 +29,28 @@ var numCourant;
             main();
         }else{
             alert("Au revoir!")
+        }
+    }
+
+    function fonctionIndisponible() {
+        alert("Cette fonction est indisponible");
+        etapeSuivant();
+    }
+
+    function afficheSolde(num) {
+        var indice = tabNumeros.indexOf(num);
+       // console.log(num);
+        if(indice != -1){
+            var code = window.prompt("Donnez votre code: ");
+            if(code==tabCodes[indice]){
+                let msg = "Votre solde est de : "+tabSoldes[indice];
+                alert(msg);
+                etapeSuivant();              
+            }
+        }else{
+              let msg = "Votre numéro  n'existe pas!";
+              alert(msg);
+              etapeSuivant();
         }
     }
 
@@ -69,10 +90,9 @@ var numCourant;
                 }else{
     
                     var newSolde = solde - newDebit;
-                    tabNumeros.splice(indice,1, newSolde);
-                    tabNumerosTranfert.push(numDestinataire);
+                    tabSoldes.splice(indice,1, newSolde);
                      var text = "Vous avez transféré "+debit+" au "+numDestinataire+"\n"+
-                                "Votre nouveau solde est de : "+newSolde;
+                                "Votre nouveau solde est de : "+tabSoldes[indice];
                     alert(text);
                     etapeSuivant();    
                 }
@@ -99,6 +119,12 @@ var numCourant;
             break;
         case "2":
             tranfert(numCourant);
+            break;
+        case "3":
+            fonctionIndisponible();
+            break;
+        case "4":
+            fonctionIndisponible();
             break;
      }
  }
