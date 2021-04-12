@@ -71,43 +71,46 @@ var numCourant;
         }
     }
 
-    function tranfert(num){
+    function transfert(num){
         var indice = tabNumeros.indexOf(num);
-        var numDestinataire = window.prompt("Entrer le numéro du destinataire");
-        if(numDestinataire.length > 9 || numDestinataire.length < 9){
-             alert("Ce numéro n'est pas valide");
-             etapeSuivant();
-        }else{
-
-            var debit = window.prompt("Entrer le montant de transfert");
-            if(indice != -1){
-                var newDebit = parseInt(debit);
-                var solde = tabSoldes[indice];
-
-                if(newDebit > solde ){
-                    alert("Votre solde est insuffisant");
+        if(indice != -1){
+            var code = window.prompt("Donnez votre code: ");
+            if(code==tabCodes[indice]){
+                var numDestinataire = window.prompt("Entrer le numéro du destinataire");
+                if(numDestinataire.length > 9 || numDestinataire.length < 9){
+                    alert("Ce numéro n'est pas valide");
                     etapeSuivant();
-                }else{
-    
-                    var newSolde = solde - newDebit;
-                    tabSoldes.splice(indice,1, newSolde);
-                     var text = "Vous avez transféré "+debit+" au "+numDestinataire+"\n"+
-                                "Votre nouveau solde est de : "+tabSoldes[indice];
-                    alert(text);
-                    etapeSuivant();    
-                }
-    
-                
-            }else{
-    
-                let msg = "Votre numéro  n'existe pas!";
-                alert(msg);
-                etapeSuivant();
+               }else{
+                   let debit = window.prompt("Entrer le montant de transfert");
+                   let newDebit = parseInt(debit);
+                   let solde = tabSoldes[indice];
+
+                    if(newDebit > solde ){
+                        alert("Votre solde est insuffisant");
+                        etapeSuivant();
+                    }else{
+        
+                        let newSolde = solde - newDebit;
+                        tabSoldes.splice(indice,1, newSolde);
+                        let text = "Vous avez transféré "+debit+" au "+numDestinataire+"\n"+
+                                    "Votre nouveau solde est de : "+tabSoldes[indice];
+                        alert(text);
+                        etapeSuivant();    
+                    }
+
+               }
+                             
             }
-    
+
+        }else{
+            let msg = "Votre numéro  n'existe pas!";
+            alert(msg);
+            etapeSuivant();
         }
-       
+
+
     }
+
 
 
  function main(){
@@ -118,7 +121,7 @@ var numCourant;
             afficheSolde(numCourant);
             break;
         case "2":
-            tranfert(numCourant);
+            transfert(numCourant);
             break;
         case "3":
             fonctionIndisponible();
